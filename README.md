@@ -24,6 +24,6 @@ python main.py
 
 ## todo
 * replace time.sleep and try excepts with selenium waits
-* parse tips for all skills
 * download audio files, match to words/phrases
 * create anki deck with genanki
+* setup dockerfile and make headless
