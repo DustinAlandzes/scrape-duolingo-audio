@@ -12,7 +12,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-##### download geckodriver and put in directory
+##### download geckodriver and put in the project folder
 * You can download the version for your OS here: https://github.com/mozilla/geckodriver/releases
 
 ##### set username and password environment variables and run get_json_files.py
@@ -22,7 +22,7 @@ export password=secretpass
 python get_json_files.py
 ```
 
-#### run parse_json_files.py
+##### run parse_json_files.py
 ```bash
 python parse_json_files.py
 ```
@@ -33,4 +33,5 @@ python parse_json_files.py
 * match audio links to words/phrases
 * download audio
 * create anki deck with genanki
+* see if I can incorporate the styling provided in the json
 * setup dockerfile and make headless
