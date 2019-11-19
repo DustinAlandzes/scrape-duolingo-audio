@@ -15,23 +15,15 @@ pip install -r requirements.txt
 ##### download geckodriver and put in the project folder
 * You can download the version for your OS here: https://github.com/mozilla/geckodriver/releases
 
-##### set username and password environment variables and run get_json_files.py
+##### set username and password environment variables and run main.py
 ```bash
 export username=dustin
 export password=secretpass
-python get_json_files.py
+python main.py
 ```
 
-##### run parse_json_files.py
-```bash
-python parse_json_files.py
-```
+##### there should be an output.apk now, import it to anki!
 
 ## todo
-* automatically create data folder if it doesn't exist
-* exception handling, close browser on exception
-* match audio links to words/phrases
-* download audio
-* create anki deck with genanki
-* see if I can incorporate the styling provided in the json
-* setup dockerfile and make headless
+* incorporate styling from json into anki cards
+* setup dockerfile

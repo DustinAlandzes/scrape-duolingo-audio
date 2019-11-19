@@ -1,6 +1,11 @@
+cached-property==1.5.1
 certifi==2019.9.11
 chardet==3.0.4
+frozendict==1.2
+genanki==0.7.0
 idna==2.8
+pystache==0.5.4
+PyYAML==5.1.2
 requests==2.22.0
 selenium==3.141.0
 selenium-wire==1.0.10

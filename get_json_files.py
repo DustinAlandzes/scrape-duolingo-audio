@@ -5,6 +5,7 @@ from typing import List
 
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
@@ -70,8 +71,11 @@ def get_list_of_skill_names(browser: WebDriver, wait: WebDriverWait) -> List[str
 
 
 def scrape_duolingo():
+    options = Options()
+    options.headless = True
+
     # using seleniumwire.webdriver so I can intercept the http requests sent from/to the javascript client
-    browser = webdriver.Firefox(executable_path='./geckodriver')
+    browser = webdriver.Firefox(options=options, executable_path='./geckodriver')
 
     # the json files containing links to the audio files are all from cloudfront
     browser.scopes = [
@@ -80,9 +84,12 @@ def scrape_duolingo():
 
     wait = WebDriverWait(browser, 20)
 
+    logging.info("Started webdriver.")
+
     try:
         login(browser, wait)
         skill_names = get_list_of_skill_names(browser, wait)
+        logging.info(f"Got this list of skills: {skill_names}")
 
         # find each skill name, click the button, download the json data, go back, close the tooltip
         for skill in skill_names:
@@ -108,6 +115,7 @@ def scrape_duolingo():
                     with open(f'{DATA_DIR}/{skill}.json', 'wb') as f:
                         f.write(r.response.body)
 
+            logging.info(f"Got json for {skill}")
             # click back to the skill tree
             home_button = browser.find_element_by_xpath("//a[@href='/']")
             home_button.click()
