@@ -49,18 +49,16 @@ def login(browser: WebDriver, wait: WebDriverWait):
 
 def get_list_of_skill_names(browser: WebDriver, wait: WebDriverWait) -> List[str]:
     # get a list of all the skill buttons
-    skills: List[WebElement] = wait.until(
-        EC.presence_of_all_elements_located((By.XPATH, "//div[@data-test='skill']"))
-    )
+    skills: List[WebElement] = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//div[@data-test='skill']")))
 
     # get list of each skill name
     skill_names: List[str] = []
     for skill in skills:
         name: str = skill.find_element_by_xpath("./div/div/div[2]").text
-        color: str = skill.find_element_by_xpath("./div/div/div[2]/span").value_of_css_property('color')
+        color: str = skill.find_element_by_xpath("./div/div/div[1]/div/div[2]/div").value_of_css_property('background-color')
 
         # don't click skills not yet unlocked
-        if color == "rgb(153, 153, 153)":
+        if color == "rgb(229, 229, 229)":
             logging.info(f"Skipping {name} because it is locked!")
             continue
 
@@ -96,12 +94,14 @@ def scrape_duolingo():
             # remove all the requests previous to this
             del browser.requests
 
+
             # find name, and the button is the first div two parents above it
             skill_button = wait.until(
-                EC.presence_of_element_located((By.XPATH, f"//span[text()='{skill}']/../../div[1]")))
+                EC.presence_of_element_located((By.XPATH, f"//div[text()='{skill}']/../../div[1]"))
+            )
             skill_button.click()
 
-            tips_button = wait.until(EC.presence_of_element_located((By.XPATH, "//img[@alt='Tips and notes']/..")))
+            tips_button = wait.until(EC.presence_of_element_located((By.XPATH, "//button[text()='Tips']")))
             tips_button.click()
 
             # keeping this sleep here to wait for the request to complete
@@ -122,7 +122,8 @@ def scrape_duolingo():
 
             # click skill button again to get rid of tips tooltip
             skill_button = wait.until(
-                EC.presence_of_element_located((By.XPATH, f"//span[text()='{skill}']/../../div[1]")))
+                EC.presence_of_element_located((By.XPATH, f"//div[text()='{skill}']/../../div[1]"))
+            )
             skill_button.click()
     except (NoSuchElementException, TimeoutException) as e:
         logging.error(e)

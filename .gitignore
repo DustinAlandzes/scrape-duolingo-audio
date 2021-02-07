@@ -152,3 +152,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# scrape-duolingo-audio
+geckodriver/
+data/
