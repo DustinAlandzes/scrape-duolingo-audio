@@ -63,7 +63,7 @@ def get_hint_text_and_audio(skill: dict) -> List[dict]:
             rangeEnd = link.get('rangeEnd')
             rangeStart = link.get('rangeStart')
             logging.info((index, rangeEnd, rangeStart, text[rangeStart:rangeEnd + 1]))
-            print(text[rangeStart:rangeEnd + 1], hints_hints[index])
+            logging.info(text[rangeStart:rangeEnd + 1], hints_hints[index])
 
         # element.tokenTTS
         tokenTTSCollection = element.get('element', {}).get('tokenTTS', {}).get('tokenTTSCollection', [])
